@@ -1,21 +1,39 @@
-fn main() {
-    let mut gameboard = vec![vec![false; 5]; 5];
-
-    gameboard[2][2] = true;
-
-    print_field(&gameboard);
+#[derive(Copy, Clone, PartialEq)]
+pub enum Cell {
+    ALIVE = 0,
+    DEAD =  1,
 }
 
-fn print_field(board: &Vec<Vec<bool>>) {
-    for x in 0..board.len() {
-        for y in 0..board[0].len() {
-            if board[x][y] {
-                print!("#");
-            } else {
-                print!("0")
-            }
+impl std::fmt::Display for Cell {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        if *self == Self::ALIVE {
+            write!(f, "#")
+        }else {
+            write!(f, "0")
         }
-        println!()
+        
     }
-    println!()
+}
+
+struct Board {
+    pub width: u32,
+    pub height: u32,
+    cells: Vec<Cell>,
+} 
+
+impl Board {
+    fn get(&self, row:u32, column:u32) -> Cell {
+        self.cells[(row * self.width + column) as usize].clone()
+    }
+} 
+
+fn main() {
+    let board = Board { width: 50, height: 50, cells: vec![Cell::DEAD; 50*50] };
+
+    for x in 0..board.width {
+        for y in 0..board.height {
+            print!("{}", board.get(x, y));
+        }
+        println!();
+    }
 }
