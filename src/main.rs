@@ -19,6 +19,7 @@ fn main() {
 }
 
 fn print_field(board: &Vec<Vec<bool>>) {
+    print!("{}[2J", 27 as char);
     for x in 0..board.len() {
         for y in 0..board[0].len() {
             if board[x][y] {
@@ -29,7 +30,6 @@ fn print_field(board: &Vec<Vec<bool>>) {
         }
         println!()
     }
-    println!()
 }
 
 fn ruler(board: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
